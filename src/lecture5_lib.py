@@ -11,11 +11,7 @@ def _get_peak_index(y):
     '''
     peak = max(y)
     # TODO: what if more than one point has the maximum value?
-    # TODO: is there a library function to simplify this code?
-    for i, v in enumerate(y):
-        if v == peak:
-            break
-    return i
+    return list(y).index(peak)
 
 
 def peak_position(x, y):
