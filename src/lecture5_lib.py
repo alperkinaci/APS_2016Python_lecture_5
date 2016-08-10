@@ -10,6 +10,7 @@ def _get_peak_index(y):
     :return int: index of y
     '''
     peak = max(y)
+    # advanced homework
     # TODO: what if more than one point has the maximum value?
     return list(y).index(peak)
 
@@ -24,6 +25,7 @@ def peak_position(x, y):
     
     x & y must have the same length
     '''
+    # homework
     # TODO: raise exception if x & y do not have same length
     # TODO: raise exception if x or y have zero length
     position = _get_peak_index(y)
@@ -38,12 +40,26 @@ def center_of_mass(x, y):
     :param [float] y: array of abcissae
     :return float: center of mass
     
+    The equation of the center of mass of :math:`y(x)`,
+
     .. math::
     
         C = \int_{-\infty}^{-\infty}{x y dx} / \int_{-\infty}^{-\infty}{y dx}
     
+    For a discrete set of :math:`n` ordered pairs of points,
+    writing the math with the first point indicated by subscript 
+    *zero* as in :math:`(x_0, y_0)`,
+
+    .. math::
+        
+        C = \sum_{i=1}^{i=n-1}(\bar{x} \bar{y} \delta x) / \sum_{i=1}^{i=n}(\bar{y} \delta x)
+    
+    where :math:`\delta x = x_i - x_{i-1}`, :math:`\bar{x} = (x_i + x_{i-1})/2`, 
+    and :math:`bar{y} = (y_i + y_{i-1})/2`.
+    
     x & y must have the same length
     '''
+    # advanced homework
     # TODO: subtract a background
     area_x_y_dy = 0
     area_y_dy = 0
@@ -53,6 +69,8 @@ def center_of_mass(x, y):
         y_mean = (y[i] + y[i-1])/2
         area_x_y_dy += x_mean * y_mean * dx
         area_y_dy += y_mean * dx
+    
+    # homework
     # TODO: what if area_y_dy is zero?
     return area_x_y_dy / area_y_dy
 
@@ -70,6 +88,7 @@ def fwhm(x, y):
     position = _get_peak_index(y)
     half_max = y[position] / 2
     
+    # advanced homework
     # TODO: use linear interpolation
     # TODO: what if the data is noisy?
     
@@ -83,5 +102,5 @@ def fwhm(x, y):
     while right < len(y)-1 and y[right] > half_max:
         right += 1
     
-    # computer FWHM
+    # compute FWHM
     return abs(x[left] - x[right])
