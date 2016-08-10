@@ -19,7 +19,9 @@ Physically, the data are from a Si (220) crystal Bragg reflection
 *rocking curve* measurement using 10.5 keV X-rays
 from the USAXS instrument when it was at APS beam line 32ID,
 recorded by SPEC on 2010-04-25.  This scan is part of a
-routine alignment process of the USAXS instrument.
+[routine alignment process]
+(http://usaxs.xray.aps.anl.gov/livedata/specplots/2010/04/04_25/) 
+of the USAXS instrument.
 
 
 ## References
