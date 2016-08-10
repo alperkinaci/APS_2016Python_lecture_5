@@ -15,9 +15,11 @@ The data file chosen for this example is from [the NeXus manual](http://download
 A graph of this data is provided.
 ![graph of writer_1_3.hdf5:/Scan/data](src/writer_1_3.png)
 
-Physically, the data are from a Si (111) crystal reflection
+Physically, the data are from a Si (220) crystal Bragg reflection
+*rocking curve* measurement using 10.5 keV X-rays
 from the USAXS instrument when it was at APS beam line 32ID,
-recorded by SPEC on 2010-04-25.
+recorded by SPEC on 2010-04-25.  This scan is part of a
+routine alignment process of the USAXS instrument.
 
 
 ## References
