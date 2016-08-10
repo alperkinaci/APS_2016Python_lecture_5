@@ -13,7 +13,7 @@ lecture have been written to avoid direct calls to *numpy* routines.
 
 The data file chosen for this example is from [the NeXus manual](http://download.nexusformat.org/doc/html/examples/h5py).
 A graph of this data is provided.
-![graph of writer_1_3.hdf5:/Scan/data](src/writer_1_3.png)
+![graph of writer_1_3.hdf5:/Scan/data](writer_1_3.png)
 
 Physically, the data are from a Si (220) crystal Bragg reflection
 *rocking curve* measurement using 10.5 keV X-rays
