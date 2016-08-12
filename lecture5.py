@@ -15,4 +15,4 @@ print 'FWHM:', lecture5_lib.fwhm(x, y)
 f.close()
 
 def dummy():
-  ''' ''''
+  ''' '''
