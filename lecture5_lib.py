@@ -1,12 +1,19 @@
 '''
 library of functions used in APS 2016 Python lecture 5
+
+.. autosummary::
+
+    peak_position
+    center_of_mass
+    fwhm
+
 '''
 
 def _get_peak_index(y):
     '''
     report the index of the first point with maximum in y[i]
     
-    :param [float] y: array of values
+    :param [float] y: array (list of float) of values
     :return int: index of y
     '''
     peak = max(y)
@@ -36,15 +43,15 @@ def center_of_mass(x, y):
     '''
     report the center of mass of y(x)
     
-    :param [float] x: array of ordinates
-    :param [float] y: array of abcissae
+    :param [float] x: array (list of float) of ordinates
+    :param [float] y: array (list of float) of abcissae
     :return float: center of mass
     
     The equation of the center of mass of :math:`y(x)`,
 
     .. math::
     
-        C = \int_{-\infty}^{-\infty}{x y dx} / \int_{-\infty}^{-\infty}{y dx}
+        C ={ \int_{-\infty}^{-\infty}{x \\ y \\ dx} \over \int_{-\infty}^{-\infty}{y \\ dx}}
     
     For a discrete set of :math:`n` ordered pairs of points,
     writing the math with the first point indicated by subscript 
@@ -52,10 +59,10 @@ def center_of_mass(x, y):
 
     .. math::
         
-        C = \sum_{i=1}^{i=n-1}(\bar{x} \bar{y} \delta x) / \sum_{i=1}^{i=n}(\bar{y} \delta x)
+        C = {\sum_{i=1}^{i=n-1}(\\bar x \\ \\bar y \\ \Delta x) \over \sum_{i=1}^{i=n}(\\bar y \\ \Delta x)}
     
-    where :math:`\delta x = x_i - x_{i-1}`, :math:`\bar{x} = (x_i + x_{i-1})/2`, 
-    and :math:`bar{y} = (y_i + y_{i-1})/2`.
+    where :math:`\Delta x = x_i - x_{i-1}`, :math:`\\bar{x} = (x_i + x_{i-1})/2`, 
+    and :math:`\\bar{y} = (y_i + y_{i-1})/2`.
     
     x & y must have the same length
     '''
@@ -71,13 +78,18 @@ def center_of_mass(x, y):
         area_y_dy += y_mean * dx
     
     # homework
-    # - Describe what happens when area_y_dy is zero?
+    # - Describe what happens when area_y_dy is zero
     return area_x_y_dy / area_y_dy
 
 
 def fwhm(x, y):
     '''
     report the full-width at half-maximum of y(x)
+    
+    Start at the peak position and walk down each side, 
+    stopping at the first point where *y* value is less than or equal
+    to the peak *y* value.  The difference between the *x* values
+    of the two sides is the FWHM.
     
     :param [float] x: array of ordinates
     :param [float] y: array of abcissae
