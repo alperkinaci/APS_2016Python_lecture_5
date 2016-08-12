@@ -13,3 +13,6 @@ print 'peak position:', lecture5_lib.peak_position(x, y)
 print 'center-of-mass:', lecture5_lib.center_of_mass(x, y)
 print 'FWHM:', lecture5_lib.fwhm(x, y)
 f.close()
+
+def dummy():
+  ''' ''''
