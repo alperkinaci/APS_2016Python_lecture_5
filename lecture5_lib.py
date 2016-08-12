@@ -26,8 +26,8 @@ def peak_position(x, y):
     x & y must have the same length
     '''
     # homework
-    # TODO: raise exception if x & y do not have same length
-    # TODO: raise exception if x or y have zero length
+    # TODO: raise IndexError exception if x & y arrays (lists) do not have same length
+    # TODO: raise IndexError exception if x or y array (list) have zero length
     position = _get_peak_index(y)
     return x[position]
 
@@ -60,7 +60,7 @@ def center_of_mass(x, y):
     x & y must have the same length
     '''
     # advanced homework
-    # TODO: subtract a background
+    # TODO: first subtract a background
     area_x_y_dy = 0
     area_y_dy = 0
     for i in range(1, len(y)):
@@ -71,7 +71,7 @@ def center_of_mass(x, y):
         area_y_dy += y_mean * dx
     
     # homework
-    # TODO: what if area_y_dy is zero?
+    # - Describe what happens when area_y_dy is zero?
     return area_x_y_dy / area_y_dy
 
 
@@ -88,9 +88,10 @@ def fwhm(x, y):
     position = _get_peak_index(y)
     half_max = y[position] / 2
     
+    # homework
+    # - Describe what happens when the data is noisy?
     # advanced homework
-    # TODO: use linear interpolation
-    # TODO: what if the data is noisy?
+    # TODO: use linear interpolation to improve precision
     
     # walk down the left side of the peak
     left = position
