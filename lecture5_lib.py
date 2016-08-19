@@ -102,6 +102,9 @@ def fwhm(x, y):
     
     # homework
     # - Describe what happens when the data are noisy?
+    # This algorithm uses the first data to fall below the half_max.
+    # Which may result in a reported FWHM that is smaller than the actual value.
+    # To improve accuracy in this case, additional curve fitting would be needed.
     
     # walk down the left side of the peak
     left = position
