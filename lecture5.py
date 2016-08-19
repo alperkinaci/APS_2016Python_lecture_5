@@ -10,7 +10,8 @@ x = f['/Scan/data/two_theta']
 y = f['/Scan/data/counts']
 print 'file:', f.filename
 print 'peak position:', lecture5_lib.peak_position(x, y)
-print 'center-of-mass:', lecture5_lib.center_of_mass(x, y)
+background_parameters = (500, 2.1)  # completely made-up, not derived from any fit
+print 'center-of-mass:', lecture5_lib.center_of_mass(x, y, background_parameters)
 print 'FWHM:', lecture5_lib.fwhm(x, y)
 f.close()
 
