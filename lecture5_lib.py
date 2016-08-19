@@ -102,8 +102,6 @@ def fwhm(x, y):
     
     # homework
     # - Describe what happens when the data is noisy?
-    # advanced homework
-    # TODO: use linear interpolation to improve precision
     
     # walk down the left side of the peak
     left = position
@@ -118,4 +116,15 @@ def fwhm(x, y):
         right += 1
     
     # compute FWHM
-    return abs(x[left] - x[right])
+    # advanced homework
+    #  use linear interpolation to improve precision
+    x_left = interpolate(half_max, y[left], x[left], y[left+1], x[left+1])
+    x_right = interpolate(half_max, y[right], x[right], y[right-1], x[right-1])
+    return abs(x_left - x_right)
+
+
+def interpolate(x, x1, y1, x2, y2):
+    '''
+    given data points x1,y1 & x2,y2, find y given x using linear interpolation
+    '''
+    return y1 + (y2 - y1)*(x - x1)/(x2 - x1)
