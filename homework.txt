@@ -7,3 +7,6 @@ Homework
   a) Edit to prevent left from reaching value of -1. 
      http://usaxs.xray.aps.anl.gov/livedata/specplots/2010/04/04_25/s00095.png 
 4. Advanced homework problems are marked in the same file.
+  a) in _get_peak_index(), what if more than one point has the maximum value?
+  b) in center_of_mass(), first subtract a background
+  c) in fwhm(), use linear interpolation to improve precision
