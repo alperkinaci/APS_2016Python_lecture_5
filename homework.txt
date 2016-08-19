@@ -10,3 +10,4 @@ Homework
   a) in _get_peak_index(), what if more than one point has the maximum value?
   b) in center_of_mass(), first subtract a background
   c) in fwhm(), use linear interpolation to improve precision
+5. In fwhm(), Describe what happens when the data are noisy?

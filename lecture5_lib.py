@@ -101,7 +101,7 @@ def fwhm(x, y):
     half_max = y[position] / 2
     
     # homework
-    # - Describe what happens when the data is noisy?
+    # - Describe what happens when the data are noisy?
     
     # walk down the left side of the peak
     left = position
