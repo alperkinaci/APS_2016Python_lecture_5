@@ -79,6 +79,7 @@ def center_of_mass(x, y):
     
     # homework
     # - Describe what happens when area_y_dy is zero
+    # lecture5_lib.py:83: RuntimeWarning: divide by zero encountered in double_scalars
     return area_x_y_dy / area_y_dy
 
 
