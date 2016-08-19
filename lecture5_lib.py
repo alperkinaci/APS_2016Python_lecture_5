@@ -107,13 +107,10 @@ def fwhm(x, y):
     
     # walk down the left side of the peak
     left = position
-    while y[left] > half_max:
-        left -= 1
     # homework
-    # TODO: make sure that "left" will not advance too far, out of range of the indexes
-    # otherwise, y[-1] will generate an exception
-    # This chart shows an example when this would happen
-    # http://usaxs.xray.aps.anl.gov/livedata/specplots/2010/04/04_25/s00095.png
+    #   make sure that "left" will not advance too far, out of range of the indexes
+    while left > 0 and y[left] > half_max:
+        left -= 1
     
     # walk down the right side of the peak
     right = position
