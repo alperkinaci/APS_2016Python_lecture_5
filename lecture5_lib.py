@@ -33,7 +33,8 @@ def peak_position(x, y):
     x & y must have the same length
     '''
     # homework
-    # TODO: raise IndexError exception if x & y arrays (lists) do not have same length
+    if len(x) != len(y):
+        raise IndexError('x & y arrays not of the same length, cannot assume ordered pairs')
     # TODO: raise IndexError exception if x or y array (list) have zero length
     position = _get_peak_index(y)
     return x[position]
