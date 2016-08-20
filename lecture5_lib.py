@@ -39,12 +39,13 @@ def peak_position(x, y):
     return x[position]
 
 
-def center_of_mass(x, y):
+def center_of_mass(x, y, b = [0.0]):
     '''
     report the center of mass of y(x)
     
     :param [float] x: array (list of float) of ordinates
     :param [float] y: array (list of float) of abcissae
+    :param [float] b: array (list of float) of Taylor series coefficients
     :return float: center of mass
     
     The equation of the center of mass of :math:`y(x)`,
@@ -65,15 +66,35 @@ def center_of_mass(x, y):
     and :math:`\\bar{y} = (y_i + y_{i-1})/2`.
     
     x & y must have the same length
+    
+    The background, :math:`B`, is modeled as a polynomial (of arbitrary order).
+    The polynomial coefficients are supplied in the :math:`b` variable.
+
+    .. math::
+        
+        B = b_0 + b_1 x + b_2 x^2 + ... b_m x^m
+
+    By default, there is only one coefficient so that 
+    the background is a constant zero.
+    A linear background may be supplied with a :math:`b` 
+    array with two values (constant, slope).
     '''
     # advanced homework
-    # TODO: first subtract a background
+    #   first subtract a background
+    # This can get complicated since one must assume an analytical model for the background.
+    # Then, the task of fitting that model to the given data comes.
+    # Both are advanced topics for lecture in this course series.
+    # Let's assume a specific model: background to be subtracted is modeled by a Taylor series
+    # AND further assume that it will be supplied by the caller,
+    # AND assume a default constant value of zero.
+
     area_x_y_dy = 0
     area_y_dy = 0
     for i in range(1, len(y)):
         dx = x[i] - x[i-1]
         x_mean = (x[i] + x[i-1])/2
-        y_mean = (y[i] + y[i-1])/2
+        background = taylorSeries(x_mean, b)
+        y_mean = (y[i] + y[i-1])/2 - background
         area_x_y_dy += x_mean * y_mean * dx
         area_y_dy += y_mean * dx
     
@@ -101,7 +122,10 @@ def fwhm(x, y):
     half_max = y[position] / 2
     
     # homework
-    # - Describe what happens when the data is noisy?
+    # - Describe what happens when the data are noisy?
+    # This algorithm uses the first data to fall below the half_max.
+    # Which may result in a reported FWHM that is smaller than the actual value.
+    # To improve accuracy in this case, additional curve fitting would be needed.
     
     # walk down the left side of the peak
     left = position
@@ -128,3 +152,55 @@ def interpolate(x, x1, y1, x2, y2):
     given data points x1,y1 & x2,y2, find y given x using linear interpolation
     '''
     return y1 + (y2 - y1)*(x - x1)/(x2 - x1)
+
+
+def taylorSeries(x, b = [0,]):
+    '''
+    evaluate a Taylor series expansion about :math:`x` using the supplied coefficients :math:`b`
+    
+    The Taylor series expansion , :math:`T`, is based on the 
+    supplied array of coefficients obtained from fitting a polynomial.
+    For a Taylor series of order :math:`m` 
+    (with :math:`m+1` coefficients supplied),
+
+    .. math::
+        
+        T = {\sum_{i=0}^{i=m}(b_i \\ x^i)}
+    
+    Computationally, this can be re-arranged to avoid round-off, underflow,
+    and/or overflow errors
+    in the higher-order terms (as :math:`i` increases).  It is also faster
+    since it does not generate powers of :math:`x`.  Re-arranging,
+
+    .. math::
+        
+        T = b_0 + b_1 x + b_2 x^2 + ... b_m x^m
+    
+    Factoring out the exponents:
+
+    .. math::
+        
+        T = b_0 + x (b_1  + x (b_2 + x (b3 + x (b_m))))
+    
+    Finally, we write this as an algorithm where
+    :math:`i` progresses from the highest order term to the lowest.
+    Start with
+
+    .. math::
+        
+        T = b_m
+    
+    Then loop :math:`i` from :math:`m-1` to :math:`0`, accumulating
+
+    .. math::
+        
+        T = x * T + b_i
+    
+    For example, a Taylor series expansion to compute a constant zero
+    will have ``b = [0,]`` which is the default.
+    For a linear function, then ``b = [intercept, slope]``.
+    '''
+    T = b[-1]
+    for b_i in reversed(b[:-1]):
+        T = x * T + b_i
+    return T

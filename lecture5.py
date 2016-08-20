@@ -11,6 +11,12 @@ y = f['/Scan/data/counts']
 print 'file:', f.filename
 print 'peak position:', lecture5_lib.peak_position(x, y)
 print 'center-of-mass:', lecture5_lib.center_of_mass(x, y)
+background_parameters = (500, 2.1)  # completely made-up, not derived from any fit
+print 'center-of-mass:', lecture5_lib.center_of_mass(x, y, background_parameters)
+slope = (y[-1] - y[0]) / (x[-1] - x[0])
+intercept = lecture5_lib.interpolate(0.0, x[0], y[0], x[-1], y[-1])
+background_parameters = (intercept, slope)  # straight line between first and last points
+print 'center-of-mass:', lecture5_lib.center_of_mass(x, y, background_parameters)
 print 'FWHM:', lecture5_lib.fwhm(x, y)
 f.close()
 
