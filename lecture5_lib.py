@@ -39,13 +39,12 @@ def peak_position(x, y):
     return x[position]
 
 
-def center_of_mass(x, y, b = [0.0]):
+def center_of_mass(x, y):
     '''
     report the center of mass of y(x)
     
     :param [float] x: array (list of float) of ordinates
     :param [float] y: array (list of float) of abcissae
-    :param [float] b: array (list of float) of Taylor series coefficients
     :return float: center of mass
     
     The equation of the center of mass of :math:`y(x)`,
@@ -66,56 +65,15 @@ def center_of_mass(x, y, b = [0.0]):
     and :math:`\\bar{y} = (y_i + y_{i-1})/2`.
     
     x & y must have the same length
-    
-    The equation to compute the background, :math:`B`, is based on the 
-    supplied array of coefficients obtained from fitting a polynomial
-    to the background data.  For a Taylor series of order :math:`m` 
-    (with :math:`m+1` coefficients supplied),
-
-    .. math::
-        
-        B = {\sum_{i=0}^{i=m}(b_i \\ x^i)}
-    
-    Computationally, this can be re-arranged to avoid round-off error
-    in the higher-order terms (as :math:`i` increases).  It is also faster
-    since it does not generate powers of :math:`x`.  In this case,
-    the :math:`i` progresses from the highest order term to the lowest.
-    Start with
-
-    .. math::
-        
-        B = b_m
-    
-    Then loop :math:`i` from :math:`m-1` to :math:`0`, accumulating
-
-    .. math::
-        
-        B = x * B + b_i
-    
-    By default, there is only one coefficient so that 
-    the background is a constant zero.
-    A linear background may be supplied with a :math:`b` 
-    array with two values (constant, slope).
     '''
     # advanced homework
-    #   first subtract a background
-    # This can get complicated since one must assume an analytical model for the background.
-    # Then, the task of fitting that model to the given data comes.
-    # Both are advanced topics for lecture in this course series.
-    # Let's assume a specific model: background to be subtracted is modeled by a Taylor series
-    # AND further assume that will be supplied, and assume a default value of zero.
-    reversed_b = list(b)
-    reversed_b.reverse()
-
+    # TODO: first subtract a background
     area_x_y_dy = 0
     area_y_dy = 0
     for i in range(1, len(y)):
         dx = x[i] - x[i-1]
         x_mean = (x[i] + x[i-1])/2
-        background = 0.0
-        for b_i in reversed_b:
-            background = x_mean * background + b_i
-        y_mean = (y[i] + y[i-1])/2 - background
+        y_mean = (y[i] + y[i-1])/2
         area_x_y_dy += x_mean * y_mean * dx
         area_y_dy += y_mean * dx
     
