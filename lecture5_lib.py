@@ -104,19 +104,17 @@ def fwhm(x, y):
     half_max = y[position] / 2
     
     # homework
-    # - Describe what happens when the data is noisy?
-    # advanced homework
-    # TODO: use linear interpolation to improve precision
+    # - Describe what happens when the data are noisy?
+    # This algorithm uses the first data to fall below the half_max.
+    # Which may result in a reported FWHM that is smaller than the actual value.
+    # To improve accuracy in this case, additional curve fitting would be needed.
     
     # walk down the left side of the peak
     left = position
-    while y[left] > half_max:
-        left -= 1
     # homework
-    # TODO: make sure that "left" will not advance too far, out of range of the indexes
-    # otherwise, y[-1] will generate an exception
-    # This chart shows an example when this would happen
-    # http://usaxs.xray.aps.anl.gov/livedata/specplots/2010/04/04_25/s00095.png
+    #   make sure that "left" will not advance too far, out of range of the indexes
+    while left > 0 and y[left] > half_max:
+        left -= 1
     
     # walk down the right side of the peak
     right = position
@@ -124,4 +122,15 @@ def fwhm(x, y):
         right += 1
     
     # compute FWHM
-    return abs(x[left] - x[right])
+    # advanced homework
+    #  use linear interpolation to improve precision
+    x_left = interpolate(half_max, y[left], x[left], y[left+1], x[left+1])
+    x_right = interpolate(half_max, y[right], x[right], y[right-1], x[right-1])
+    return abs(x_left - x_right)
+
+
+def interpolate(x, x1, y1, x2, y2):
+    '''
+    given data points x1,y1 & x2,y2, find y given x using linear interpolation
+    '''
+    return y1 + (y2 - y1)*(x - x1)/(x2 - x1)
