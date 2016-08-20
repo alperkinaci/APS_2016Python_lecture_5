@@ -6,6 +6,10 @@ library of functions used in APS 2016 Python lecture 5
     peak_position
     center_of_mass
     fwhm
+    interpolate
+    taylorSeries
+
+.. rubric:: Methods
 
 '''
 
@@ -69,8 +73,8 @@ def center_of_mass(x, y, b = [0.0]):
     
     x & y must have the same length
     
-    The background, :math:`B`, is modeled as a polynomial (of arbitrary order).
-    The polynomial coefficients are supplied in the :math:`b` variable.
+    The background, :math:`B`, is modeled as a polynomial (of arbitrary order :math:`m`).
+    The polynomial coefficients are supplied in the variable. :math:`b`
 
     .. math::
         
@@ -79,7 +83,7 @@ def center_of_mass(x, y, b = [0.0]):
     By default, there is only one coefficient so that 
     the background is a constant zero.
     A linear background may be supplied with a :math:`b` 
-    array with two values (constant, slope).
+    array containing two values (constant, slope).
     '''
     # advanced homework
     #   first subtract a background
@@ -160,24 +164,31 @@ def interpolate(x, x1, y1, x2, y2):
 def taylorSeries(x, b = [0,]):
     '''
     evaluate a Taylor series expansion about :math:`x` using the supplied coefficients :math:`b`
+
+    :param float x: value at which to evaluate Taylor series expansion
+    :param [float] b: list of coefficients, default value is a constant, zero result
+    :return float: :math:`T` (as shown below)
     
     The Taylor series expansion , :math:`T`, is based on the 
-    supplied array of coefficients obtained from fitting a polynomial.
+    supplied array of coefficients :math:`b` obtained from 
+    previously fitting a polynomial.
     For a Taylor series of order :math:`m` 
-    (with :math:`m+1` coefficients supplied),
-
-    .. math::
-        
-        T = {\sum_{i=0}^{i=m}(b_i \\ x^i)}
-    
-    Computationally, this can be re-arranged to avoid round-off, underflow,
-    and/or overflow errors
-    in the higher-order terms (as :math:`i` increases).  It is also faster
-    since it does not generate powers of :math:`x`.  Re-arranging,
+    (with :math:`m+1` coefficients supplied), the polynomial expression is:
 
     .. math::
         
         T = b_0 + b_1 x + b_2 x^2 + ... b_m x^m
+    
+    Also expressed as a summation:
+
+    .. math::
+        
+        T = {\sum_{i=0}^{i=m}b_i \\ x^i}
+    
+    Computationally, this can be re-arranged to avoid round-off, underflow,
+    and/or overflow errors
+    in the higher-order terms (as :math:`i` increases).  It is also faster
+    since it does not generate powers of :math:`x`.  
     
     Factoring out the exponents:
 
@@ -185,8 +196,9 @@ def taylorSeries(x, b = [0,]):
         
         T = b_0 + x (b_1  + x (b_2 + x (b3 + x (b_m))))
     
-    Finally, we write this as an algorithm where
-    :math:`i` progresses from the highest order term to the lowest.
+    Finally, we write this as a procedure where
+    :math:`i` progresses from the highest order term to the lowest
+    (in effect, summing from the inside, high-order terms, out).
     Start with
 
     .. math::
@@ -197,10 +209,10 @@ def taylorSeries(x, b = [0,]):
 
     .. math::
         
-        T = x * T + b_i
+        T = x \\ T + b_i
     
     For example, a Taylor series expansion to compute a constant zero
-    will have ``b = [0,]`` which is the default.
+    will define ``b = [0,]`` which is the default.
     For a linear function, then ``b = [intercept, slope]``.
     '''
     T = b[-1]

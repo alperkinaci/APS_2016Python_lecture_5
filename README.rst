@@ -1,10 +1,10 @@
 APS 2016 Python lecture 5
-===========================
+=========================
 
 Python code and resources used in APS 2016 Python lecture 5
 
 Goals
-------
+-----
 
 Make basic characterizations of diffraction peak from HDF5 file data
 
