@@ -1,0 +1,9 @@
+Homework
+1. In method peak_position(), raise IndexError exception if: 
+  a) x & y arrays (lists) do not have same length 
+  b) x or y array (list) have zero length
+2. In method center_of_mass(), describe what happens when area_y_dy is zero
+3. In method fwhm(), 
+  a) Edit to prevent left from reaching value of -1. 
+     http://usaxs.xray.aps.anl.gov/livedata/specplots/2010/04/04_25/s00095.png 
+4. Advanced homework problems are marked in the same file.
